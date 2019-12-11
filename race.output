@@ -1,0 +1,108 @@
+
+
+==== External Call To User-Supplied Address ====
+SWC ID: 107
+Severity: Medium
+Contract: RaceCondition
+Function name: buy(uint256)
+PC address: 584
+Estimated Gas Usage: 14123 - 89960
+A call to a user-supplied address is executed.
+The callee address of an external message call can be set by the caller. Note that the callee can contain arbitrary code and may re-enter any function in this contract. Review the business logic carefully to prevent averse effects on the contract state.
+--------------------
+In file: race.sol:41
+
+token.transferFrom(msg.sender, owner, price)
+
+--------------------
+Initial State:
+
+Account: [CREATOR], balance: 0x1, nonce:0, storage:{}
+Account: [ATTACKER], balance: 0x40004220010815002, nonce:0, storage:{}
+Account: [SOMEGUY], balance: 0x0, nonce:0, storage:{}
+
+Transaction Sequence:
+
+Caller: [CREATOR], data: [CONTRACT_CREATION], value: 0x0
+Caller: [ATTACKER], function: buy(uint256), txdata: 0xd96a094a0000000000000000000000000000000000000000000000000000000000000000, value: 0x0
+Caller: [ATTACKER], function: buy(uint256), txdata: 0xd96a094a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a, value: 0x0
+
+==== State change after external call ====
+SWC ID: 107
+Severity: Medium
+Contract: RaceCondition
+Function name: buy(uint256)
+PC address: 647
+Estimated Gas Usage: 14123 - 89960
+Persistent state write after call
+The contract account state is changed after an external call to a user defined address. Consider that the called contract could re-enter the function before this state change takes place
+--------------------
+In file: race.sol:43
+
+price = new_price
+
+--------------------
+Initial State:
+
+Account: [CREATOR], balance: 0x8000000002, nonce:0, storage:{}
+Account: [ATTACKER], balance: 0x0, nonce:0, storage:{}
+Account: [SOMEGUY], balance: 0x100, nonce:0, storage:{}
+
+Transaction Sequence:
+
+Caller: [CREATOR], data: [CONTRACT_CREATION], value: 0x0
+Caller: [CREATOR], function: buy(uint256), txdata: 0xd96a094a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a, value: 0x0
+
+==== State change after external call ====
+SWC ID: 107
+Severity: Medium
+Contract: RaceCondition
+Function name: buy(uint256)
+PC address: 658
+Estimated Gas Usage: 14123 - 89960
+Persistent state read after call
+The contract account state is changed after an external call to a user defined address. Consider that the called contract could re-enter the function before this state change takes place
+--------------------
+In file: race.sol:44
+
+owner = msg.sender
+
+--------------------
+Initial State:
+
+Account: [CREATOR], balance: 0x4f2244c0000000000, nonce:0, storage:{}
+Account: [ATTACKER], balance: 0x4450190281001281, nonce:0, storage:{}
+Account: [SOMEGUY], balance: 0x44e527ffffffffffe, nonce:0, storage:{}
+
+Transaction Sequence:
+
+Caller: [CREATOR], data: [CONTRACT_CREATION], value: 0x0
+Caller: [CREATOR], function: buy(uint256), txdata: 0xd96a094a0000000000000000000000000000000000000000000000000000000000000000, value: 0x0
+Caller: [ATTACKER], function: buy(uint256), txdata: 0xd96a094a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a, value: 0x0
+
+==== State change after external call ====
+SWC ID: 107
+Severity: Medium
+Contract: RaceCondition
+Function name: buy(uint256)
+PC address: 711
+Estimated Gas Usage: 14123 - 89960
+Persistent state write after call
+The contract account state is changed after an external call to a user defined address. Consider that the called contract could re-enter the function before this state change takes place
+--------------------
+In file: race.sol:44
+
+owner = msg.sender
+
+--------------------
+Initial State:
+
+Account: [CREATOR], balance: 0x8000000002, nonce:0, storage:{}
+Account: [ATTACKER], balance: 0x0, nonce:0, storage:{}
+Account: [SOMEGUY], balance: 0x100, nonce:0, storage:{}
+
+Transaction Sequence:
+
+Caller: [CREATOR], data: [CONTRACT_CREATION], value: 0x0
+Caller: [CREATOR], function: buy(uint256), txdata: 0xd96a094a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a, value: 0x0
+
