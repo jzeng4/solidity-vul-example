@@ -1,0 +1,54 @@
+
+
+==== Integer Overflow ====
+SWC ID: 101
+Severity: High
+Contract: PausableToken
+Function name: batchTransfer(address[],uint256)
+PC address: 1594
+Estimated Gas Usage: 22454 - 89455
+The binary multiplication can overflow.
+The operands of the multiplication operation are not sufficiently constrained. The multiplication could therefore result in an integer overflow. Prevent the overflow by checking inputs or ensure sure that the overflow is caught by an assertion.
+--------------------
+In file: /home/junyuan/mythril/solidity_examples/mytests/overflow2.sol:259
+
+uint256(cnt) * _value
+
+--------------------
+Initial State:
+
+Account: [CREATOR], balance: 0x20e10a0003080444, nonce:0, storage:{}
+Account: [ATTACKER], balance: 0x0, nonce:0, storage:{}
+Account: [SOMEGUY], balance: 0x14010a00812000440, nonce:0, storage:{}
+
+Transaction Sequence:
+
+Caller: [CREATOR], data: [CONTRACT_CREATION], value: 0x0
+Caller: [SOMEGUY], function: batchTransfer(address[],uint256), txdata: 0x83f12fec000000000000000000000000000000000000000000000000000000000000002180000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000, value: 0x0
+
+==== Integer Overflow ====
+SWC ID: 101
+Severity: High
+Contract: BecToken
+Function name: batchTransfer(address[],uint256)
+PC address: 2434
+Estimated Gas Usage: 29976 - 118452
+The binary multiplication can overflow.
+The operands of the multiplication operation are not sufficiently constrained. The multiplication could therefore result in an integer overflow. Prevent the overflow by checking inputs or ensure sure that the overflow is caught by an assertion.
+--------------------
+In file: /home/junyuan/mythril/solidity_examples/mytests/overflow2.sol:259
+
+uint256(cnt) * _value
+
+--------------------
+Initial State:
+
+Account: [CREATOR], balance: 0x0, nonce:0, storage:{}
+Account: [ATTACKER], balance: 0x0, nonce:0, storage:{}
+Account: [SOMEGUY], balance: 0x52a01040100002500, nonce:0, storage:{}
+
+Transaction Sequence:
+
+Caller: [CREATOR], data: [CONTRACT_CREATION], value: 0x0
+Caller: [CREATOR], function: batchTransfer(address[],uint256), txdata: 0x83f12fec0000000000000000000000000000000000000000000000000000000000000035555555555555555555555555555555555555555557000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000feaf0010fc27fa003ca704003caf5cafb22dfe000000000000000000000000affeaffeaffeaffeaffeaffeaffeaffeaffaaffe000000000000000000000000010101010101010101010101010101010104af8e, value: 0x0
+
